@@ -1,10 +1,10 @@
 
-# UC Assignment — Part C: Reproducibility & Workflow
+# U3289171_DS_Assignment1 —: Reproducibility & Workflow
 
 This repository is a **ready-to-run template** satisfying Part C (10 marks): Git, Git LFS, and DVC with a reproducible pipeline.
 It is tailored to your files:
-- `data/raw/zomato_df_final_data.csv` (copied from your upload)
-- `data/external/sydney.geojson` (copied from your upload)
+- `notebook/zomato_df_final_data.csv` (copied from your upload)
+- `notebook/sydney.geojson` (copied from your upload)
 - `notebooks/U3289171_Assignment1.ipynb` (copied from your upload)
 
 > Generated 2025-09-28 10:36 (local time)
@@ -33,9 +33,9 @@ git lfs install
 
 # LFS tracks heavy visualisations & notebooks by default
 git add .
-git commit -m "Init: Repo + LFS + DVC pipeline skeleton"
+git commit -m "Init: Repo + LFS + DVC DS_Assignment1"
 git branch -M main
-git remote add origin <YOUR_GITHUB_REPO_URL>
+git remote add origin https://github.com/U3289171/DS_Assignment1_U3289171.git
 git push -u origin main
 ```
 
@@ -51,17 +51,12 @@ Notes:
 dvc init
 # Local directory remote
 dvc remote add -d localstore ./dvcstore
-# OR: S3 remote (example)
-# dvc remote add -d s3store s3://<bucket>/<path>
-# dvc remote modify s3store access_key_id <AWS_KEY>
-# dvc remote modify s3store secret_access_key <AWS_SECRET>
-# dvc remote modify s3store region <AWS_REGION>
 
 # Track raw data and external resources
-dvc add data/raw/zomato_df_final_data.csv
-dvc add data/external/sydney.geojson
+dvc add notebook/zomato_df_final_data.csv
+dvc add notebook/sydney.geojson
 
-git add data/raw/zomato_df_final_data.csv.dvc data/external/sydney.geojson.dvc .gitignore .dvc .dvcignore dvc.yaml params.yaml
+git add notebook/zomato_df_final_data.csv.dvc notebook/sydney.geojson.dvc .gitignore .dvc .dvcignore dvc.yaml params.yaml
 git commit -m "DVC: track raw data & pipeline"
 ```
 
@@ -70,12 +65,6 @@ Reproduce the **full pipeline** end-to-end:
 ```bash
 dvc repro
 ```
-
-Outputs:
-- Processed data: `data/processed/zomato_processed.csv`
-- Model: `models/model.pkl`
-- Metrics: `reports/metrics.json`
-- Figure: `reports/figures/cost_hist.png`
 
 Push data/model artifacts to your DVC remote & code to GitHub:
 
@@ -88,7 +77,7 @@ git push
 
 ```bash
 # 1) Activate environment
-source .venv/bin/activate  # or . .venv/Scripts/Activate.ps1 on Windows
+source . .venv/Scripts/Activate.ps1 on Windows
 
 # 2) Install deps
 pip install -r requirements.txt
@@ -97,7 +86,7 @@ pip install -r requirements.txt
 dvc repro
 
 # 4) Inspect results
-type reports/metrics.json   # Windows (use `cat` on macOS/Linux)
+type reports/metrics.json   
 # open reports/figures/cost_hist.png
 ```
 
@@ -122,22 +111,11 @@ Extend the pipeline by:
 ├── dvc.yaml
 ├── params.yaml
 ├── requirements.txt
-├── data
-│   ├── external
-│   │   └── sydney.geojson
-│   ├── processed
-│   └── raw
-│       └── zomato_df_final_data.csv
-├── models
 ├── notebooks
-│   └── U3289171_Assignment1.ipynb
-├── reports
-│   └── figures
-└── src
-    ├── evaluate.py
-    ├── featurize.py
-    ├── preprocess.py
-    └── train.py
+    └── sydney.geojson
+    └── U3289171_Assignment1.ipynb
+    └── zomato_df_final_data.csv
+
 ```
 
 ## 7) Reproducibility Checklist
